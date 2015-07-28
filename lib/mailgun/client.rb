@@ -24,7 +24,7 @@ module Mailgun
 
 
     def get_domains(params = {})
-      get(api_url+'/v3/domains', params)
+      RestClient.get(api_url+'/v3/domains', params)
     end
 
 
