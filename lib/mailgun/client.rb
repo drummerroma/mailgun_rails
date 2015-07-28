@@ -21,5 +21,16 @@ module Mailgun
     def api_url
       "https://api:#{api_key}@api.mailgun.net/v3/#{domain}"
     end
+
+
+    def get_domains(params = {})
+      get(api_url+'/v3/domains', params)
+    end
+
+
+
+
+
+
   end
 end
