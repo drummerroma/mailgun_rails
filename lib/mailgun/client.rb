@@ -22,15 +22,13 @@ module Mailgun
       "https://api:#{api_key}@api.mailgun.net/v3/#{domain}"
     end
 
-
-    def get_domains(params = {})
-      RestClient.get(api_url+'/v3/domains', params)
+    def base_url
+      "https://api:#{api_key}@api.mailgun.net/v3"
     end
 
-
-
-
-
+    def get_domains(params = {})
+      RestClient.get api_url+'/domains', params
+    end
 
   end
 end
