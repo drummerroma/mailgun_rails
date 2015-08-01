@@ -26,6 +26,30 @@ module Mailgun
       "https://api:#{api_key}@api.mailgun.net/v3"
     end
 
+   ########## API Calls #########
+
+    # not yet tested
+    def validate_address(value)
+      RestClient.get base_url + "/address/validate", address: value
+    end
+
+    def parse_addresses(values)
+      RestClient.get base_url + "/address/parse", addresses: Array(values).join(',')
+    end
+
+    def get_message(key)
+      RestClient.get api_url + "/messages/#{key}"
+    end
+
+    def get_mime_message(key)
+      RestClient.get api_url + "/messages/#{key}, {}, {'Accept' => 'message/rfc2822'}"
+    end
+
+    def delete_message(key)
+      RestClient.delete api_url + "/messages/#{key}"
+    end
+
+
     # domains
     #https://documentation.mailgun.com/api-domains.html
     def get_domains(params = {})
@@ -77,7 +101,7 @@ module Mailgun
     end
 
     def add_list_member(list_address, member_attributes)
-      RestClient.post base_url+"/lists/#{escape list_address}/members", member_attributes
+      RestClient.post base_url+"/lists/#{list_address}/members", member_attributes
     end
 
     def update_list_member(list_address, member_address, member_attributes)
@@ -138,6 +162,9 @@ module Mailgun
     def get_campaign_complaints(campaign_id, params = {})
       RestClient.get api_url+"/campaigns/#{id}/complaints", params
     end
+
+    # more to come
+
 
   end
 end
